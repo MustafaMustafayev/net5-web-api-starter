@@ -1,0 +1,17 @@
+# Use postgres/example user/password credentials
+version: '3.5'
+
+networks:
+    test-network:
+        name: test
+
+services:
+  test_service: 
+    container_name: container_for_test
+    image: test_image
+    networks:
+      - test-network
+    ports:
+      - "8044:80"
+      - "8045:443"    
+ 
