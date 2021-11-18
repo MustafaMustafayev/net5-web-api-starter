@@ -53,6 +53,12 @@ namespace IoC.DependencyInjection
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+            services.AddMiniProfiler(options =>
+            {
+                options.RouteBasePath = "/profiler";
+                options.ColorScheme = StackExchange.Profiling.ColorScheme.Dark;
+            }).AddEntityFramework();
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
