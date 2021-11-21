@@ -1,9 +1,9 @@
-﻿using AutoMapper;
-using DAL.Utility;
+﻿using System;
+using AutoMapper;
 using DTO.DTOs;
 using Entity.Entities;
 
-namespace Core.AutomapperProfiles
+namespace BLL.AutoMapperProfiles
 {
     public class Automapper : Profile
     {

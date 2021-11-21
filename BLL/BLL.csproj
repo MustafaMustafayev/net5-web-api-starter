@@ -13,4 +13,7 @@
     <ProjectReference Include="..\DAL\DAL.csproj" />
     <ProjectReference Include="..\DTO\DTO.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AutoMapperProfiles\" />
+  </ItemGroup>
 </Project>

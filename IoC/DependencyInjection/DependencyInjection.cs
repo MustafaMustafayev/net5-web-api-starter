@@ -1,6 +1,6 @@
-﻿using BLL.Services;
+﻿using BLL.AutoMapperProfiles;
+using BLL.Services;
 using BLL.Services.IServices;
-using Core.AutomapperProfiles;
 using Core.Utility;
 using DAL.DatabaseContext;
 using DAL.Repositories;
