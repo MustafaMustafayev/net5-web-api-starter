@@ -51,6 +51,7 @@ namespace API.ActionFilters
                 UserId = userId,
                 RequestDate = DateTime.Now
             };
+
             await next();
 
             int responseStatusCode = HttpContext.Response.StatusCode;

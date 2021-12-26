@@ -33,21 +33,21 @@ namespace BLL.Services
             user.Salt = SecurityHelper.GenerateSalt();
             user.Password = SecurityHelper.HashPassword(user.Password, user.Salt);
             User added = await _unitOfWork.UserRepository.AddAsync(user);
-            await _unitOfWork.Commit();
+            await _unitOfWork.CommitAsync();
             return new SuccessDataResult<UserToListDTO>(_mapper.Map<UserToListDTO>(added), Messages.Success);
         }
 
         public async Task Delete(int userId)
         {
-            User user =  await _unitOfWork.UserRepository.Get(m => m.UserId == userId);
+            User user =  await _unitOfWork.UserRepository.GetAsync(m => m.UserId == userId);
             user.IsDeleted = true;
-            await _unitOfWork.UserRepository.UpdateAsync(user);
-            await _unitOfWork.Commit();
+            _unitOfWork.UserRepository.Update(user);
+            await _unitOfWork.CommitAsync();
         }
 
         public async Task<IDataResult<PaginatedList<UserToListDTO>>> Get(int pageIndex, int pageSize)
         {
-            IQueryable<User> users = await _unitOfWork.UserRepository.GetList();
+            IQueryable<User> users = _unitOfWork.UserRepository.GetAsNoTrackingList();
             PaginatedList<User> response = await PaginatedList<User>.CreateAsync(users.OrderBy(m => m.UserId), pageIndex, pageSize);
             PaginatedList<UserToListDTO> responseDTO = new PaginatedList<UserToListDTO>(_mapper.Map<List<UserToListDTO>>(response.Datas), response.TotalRecordCount, response.PageIndex, response.TotalPageCount);
             return new SuccessDataResult<PaginatedList<UserToListDTO>>(responseDTO);
@@ -55,7 +55,7 @@ namespace BLL.Services
 
         public async Task<IDataResult<UserToListDTO>> Get(int userId)
         {
-            UserToListDTO user = _mapper.Map<UserToListDTO>(await _unitOfWork.UserRepository.Get(m => m.UserId == userId));
+            UserToListDTO user = _mapper.Map<UserToListDTO>(await _unitOfWork.UserRepository.GetAsNoTrackingAsync(m => m.UserId == userId));
             return new SuccessDataResult<UserToListDTO>(user);
         }
 
@@ -68,8 +68,8 @@ namespace BLL.Services
             User user = _mapper.Map<User>(userToUpdateDTO);
             user.Salt = SecurityHelper.GenerateSalt();
             user.Password = SecurityHelper.HashPassword(user.Password, user.Salt);
-            User updated = await _unitOfWork.UserRepository.UpdateAsync(user);
-            await _unitOfWork.Commit();
+            User updated = _unitOfWork.UserRepository.Update(user);
+            await _unitOfWork.CommitAsync();
             return new SuccessDataResult<UserToListDTO>(_mapper.Map<UserToListDTO>(updated), Messages.Success);
         }
     }

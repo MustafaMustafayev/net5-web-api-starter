@@ -48,7 +48,7 @@ namespace API
 
             app.UseMiniProfiler();
 
-            //app.UseMiddleware<ValidateTokenMiddleware>();
+           // app.UseMiddleware<ValidateTokenMiddleware>();
 
             app.Use(async (context, next) =>
             {

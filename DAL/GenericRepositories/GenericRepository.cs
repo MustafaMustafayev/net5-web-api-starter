@@ -22,35 +22,45 @@ namespace DAL.GenericRepositories
             TEntity newEntity = _ctx.CreateProxy<TEntity>();
             _ctx.Entry(newEntity).CurrentValues.SetValues(entity);
             _ctx.Entry(entity).State = EntityState.Detached;
-            _ctx.Add(newEntity);
+            await _ctx.AddAsync(newEntity);
            // await _ctx.SaveChangesAsync();
             return newEntity;
         }
 
-        public async Task<List<TEntity>> AddRange(List<TEntity> entity)
+        public async Task<List<TEntity>> AddRangeAsync(List<TEntity> entity)
         {
             await _ctx.AddRangeAsync(entity);
             //await _ctx.SaveChangesAsync();
             return entity;
         }
 
-        public async Task Delete(TEntity entity)
+        public void Delete(TEntity entity)
         {
             _ctx.Remove(entity);
            // return await _ctx.SaveChangesAsync();
         }
 
-        public async Task<TEntity> Get(Expression<Func<TEntity, bool>> filter = null)
+        public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> filter = null)
         {
             return await _ctx.Set<TEntity>().FirstOrDefaultAsync(filter);
         }
 
-        public async Task<IQueryable<TEntity>> GetList(Expression<Func<TEntity, bool>> filter = null)
+        public async Task<TEntity> GetAsNoTrackingAsync(Expression<Func<TEntity, bool>> filter = null)
         {
-            return (filter == null ? _ctx.Set<TEntity>() : _ctx.Set<TEntity>().Where(filter));
+            return await _ctx.Set<TEntity>().FirstOrDefaultAsync(filter);
         }
 
-        public async Task<TEntity> UpdateAsync(TEntity entity)
+        public IQueryable<TEntity> GetList(Expression<Func<TEntity, bool>> filter = null)
+        {
+            return (filter == null ? _ctx.Set<TEntity>().AsNoTracking() : _ctx.Set<TEntity>().AsNoTracking().Where(filter));
+        }
+
+        public IQueryable<TEntity> GetAsNoTrackingList(Expression<Func<TEntity, bool>> filter = null)
+        {
+            return (filter == null ? _ctx.Set<TEntity>().AsNoTracking() : _ctx.Set<TEntity>().Where(filter)).AsNoTracking();
+        }
+
+        public TEntity Update(TEntity entity)
         {
             TEntity updatedEntity = _ctx.CreateProxy<TEntity>();
             _ctx.Entry(updatedEntity).CurrentValues.SetValues(entity);
@@ -60,7 +70,7 @@ namespace DAL.GenericRepositories
             return updatedEntity;
         }
 
-        public async Task<List<TEntity>> UpdateRange(List<TEntity> entity)
+        public List<TEntity> UpdateRange(List<TEntity> entity)
         {
             _ctx.UpdateRange(entity);
            // await _ctx.SaveChangesAsync();

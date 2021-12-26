@@ -27,7 +27,7 @@ namespace BLL.Services
 
         public async Task<IDataResult<UserToListDTO>> Login(LoginDTO loginDTO)
         {
-            User user = await _unitOfWork.UserRepository.Get(m => m.Username == loginDTO.Username && m.Password == loginDTO.Password);
+            User user = await _unitOfWork.UserRepository.GetAsync(m => m.Username == loginDTO.Username && m.Password == loginDTO.Password);
             if(user == null)
             {
                 return new ErrorDataResult<UserToListDTO>(Messages.InvalidUserCredentials);

@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 
 namespace DAL.UnitOfWorks.IUnitOfWorks
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork : IAsyncDisposable
     {
         public IUserRepository UserRepository { get; set; }
         public IRoleRepository RoleRepository { get; set; }
         public IAuthRepository AuthRepository { get; set; }
-        public Task Commit();
+        public Task CommitAsync();
     }
 }
