@@ -72,6 +72,7 @@ namespace API.Controllers
             try
             {
                 int a;
+                int b;
                 if (!ModelState.IsValid)
                 {
                     return Ok(new SuccessDataResult<Result>(Messages.InvalidModel));
