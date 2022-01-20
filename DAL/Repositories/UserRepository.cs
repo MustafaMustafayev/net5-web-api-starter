@@ -3,6 +3,7 @@ using DAL.GenericRepositories;
 using DAL.Repositories.IRepositories;
 using Entity.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,7 +20,8 @@ namespace DAL.Repositories
         public async Task<string> GetUserSalt(string userName)
         {
             User user = await _dataContext.Users.SingleOrDefaultAsync(m => m.Username == userName);
-            if(user == null)
+
+            if (user == null)
             {
                 return null;
             }
@@ -28,7 +30,7 @@ namespace DAL.Repositories
 
         public async Task<bool> IsUserExist(string userName, int? userId)
         {
-            return  await _dataContext.Users.AnyAsync(m => m.Username == userName && m.UserId != userId);
+            return await _dataContext.Users.AnyAsync(m => m.Username == userName && m.UserId != userId);
         }
     }
 }

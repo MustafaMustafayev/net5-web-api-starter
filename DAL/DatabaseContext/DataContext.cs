@@ -29,7 +29,7 @@ namespace DAL.DatabaseContext
 
         /* migration commands
         * 
-          dotnet ef --startup-project ../API migrations add initial --context DataContext
+          dotnet ef --startup-project ../API migrations add test --context DataContext
           dotnet ef --startup-project ../inventar-app.API database update initial --context InventarDbContext
           dotnet ef --startup-project ../API database update --context DataContext
         * 

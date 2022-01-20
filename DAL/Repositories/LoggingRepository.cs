@@ -2,6 +2,7 @@
 using DAL.GenericRepositories;
 using DAL.Repositories.IRepositories;
 using Entity.Entities;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace DAL.Repositories

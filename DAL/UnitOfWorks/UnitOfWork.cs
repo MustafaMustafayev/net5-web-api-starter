@@ -13,14 +13,16 @@ namespace DAL.UnitOfWorks
         public IUserRepository UserRepository { get; set; }
         public IRoleRepository RoleRepository { get; set; }
         public IAuthRepository AuthRepository { get; set; }
+        public ILoggingRepository LoggingRepository { get; set; }
         private bool isDisposed = false;
 
-        public UnitOfWork(DataContext dataContext, IUserRepository userRepository, IRoleRepository roleRepository, IAuthRepository authRepository)
+        public UnitOfWork(DataContext dataContext, IUserRepository userRepository, IRoleRepository roleRepository, IAuthRepository authRepository, ILoggingRepository loggingRepository)
         {
             _dataContext = dataContext;
             UserRepository = userRepository;
             RoleRepository = roleRepository;
             AuthRepository = authRepository;
+            LoggingRepository = loggingRepository;
         }
 
         public async Task CommitAsync()

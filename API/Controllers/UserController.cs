@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using API.ActionFilters;
 using BLL.Services.IServices;
 using Core.Constants;
+using DAL.UnitOfWorks.IUnitOfWorks;
 using DTO.DTOs;
 using DTO.DTOs.Responses;
 using Microsoft.AspNetCore.Mvc;
@@ -70,6 +71,7 @@ namespace API.Controllers
         {
             try
             {
+                int a;
                 if (!ModelState.IsValid)
                 {
                     return Ok(new SuccessDataResult<Result>(Messages.InvalidModel));

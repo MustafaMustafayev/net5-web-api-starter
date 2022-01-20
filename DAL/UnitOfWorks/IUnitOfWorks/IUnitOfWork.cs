@@ -9,6 +9,7 @@ namespace DAL.UnitOfWorks.IUnitOfWorks
         public IUserRepository UserRepository { get; set; }
         public IRoleRepository RoleRepository { get; set; }
         public IAuthRepository AuthRepository { get; set; }
+        public ILoggingRepository LoggingRepository { get; set; }
         public Task CommitAsync();
     }
 }

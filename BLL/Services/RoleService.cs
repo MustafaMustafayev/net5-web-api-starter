@@ -26,7 +26,7 @@ namespace BLL.Services
         public async Task<IDataResult<RoleToListDTO>> Add(RoleToAddDTO roleToAddDTO)
         {
             Role role = _mapper.Map<Role>(roleToAddDTO);
-            Role added = await _unitOfWork.RoleRepository.AddAsync(role);
+            Role added =  await _unitOfWork.RoleRepository.AddAsync(role);
             await _unitOfWork.CommitAsync();
             return new SuccessDataResult<RoleToListDTO>(_mapper.Map<RoleToListDTO>(added), Messages.Success);
         }
